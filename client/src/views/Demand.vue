@@ -19,8 +19,9 @@
           </div>
           <div class="trend-items">
             <div v-for="item in getForecastsByTrend('increasing').slice(0, 5)" :key="item.id" class="trend-item">
+              <!-- getChangePercent already prefixes "+" for positive changes -->
               <span class="item-name">{{ item.item_name }}</span>
-              <span class="item-change">+{{ getChangePercent(item) }}%</span>
+              <span class="item-change">{{ getChangePercent(item) }}%</span>
             </div>
             <div v-if="getForecastsByTrend('increasing').length > 5" class="more-items">
               +{{ getForecastsByTrend('increasing').length - 5 }} {{ t('demand.more') }}
