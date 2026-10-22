@@ -70,7 +70,11 @@ npm install && npm run dev
 - Styles: `client/src/App.vue`
 
 ## Design System
-- Colors: Slate/gray (#0f172a, #64748b, #e2e8f0)
-- Status: green/blue/yellow/red
+- Theme: Atari 2600 inspired, dark only. Change the `:root` tokens in `client/src/App.vue` rather than hard-coding colors in views
+- Colors: near-black background (~#0b0b10) with off-white text; flat NTSC-style blocks: orange #e8761c (primary/active nav), yellow #f2c230, green, blue, red; faux wood-grain brown sidebar
+- Status: green/blue/yellow/red as solid blocks with dark text
+- Shapes: square corners (radius 0), 2-3px solid borders, hard offset shadows (no soft blurs)
+- Type: monospace stack for headings, stat numbers, badges and table headers (uppercase, letter-spacing); no web fonts
+- Interaction: visible yellow focus outline; keep text contrast at 4.5:1 or better
 - Charts: Custom SVG, CSS Grid for layouts
 - No emojis in UI
