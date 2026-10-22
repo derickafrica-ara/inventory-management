@@ -754,7 +754,7 @@ export default {
 
 .kpi-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
   gap: 1rem;
 }
 
@@ -860,11 +860,18 @@ export default {
 /* Order Health Dashboard Styles */
 .order-health-container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  /* minmax(0, 1fr) lets columns shrink below their content so the grid cannot widen the page */
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 1.5rem;
   align-items: center;
   padding: 1rem;
   min-height: 240px;
+}
+
+@media (max-width: 768px) {
+  .order-health-container {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 
 .order-health-chart {

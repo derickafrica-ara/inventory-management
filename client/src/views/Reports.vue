@@ -366,6 +366,8 @@ export default {
 .chart-container {
   padding: 2rem 1rem;
   min-height: 300px;
+  /* 12 bars need ~560px; scroll inside the card on narrow screens instead of widening the page */
+  overflow-x: auto;
 }
 
 .bar-chart {
@@ -374,6 +376,7 @@ export default {
   justify-content: space-around;
   height: 250px;
   gap: 0.5rem;
+  min-width: 560px;
 }
 
 .bar-wrapper {
@@ -415,7 +418,7 @@ export default {
 
 .stats-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
   gap: 1rem;
   margin-top: 1.5rem;
 }

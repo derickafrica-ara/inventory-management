@@ -240,6 +240,7 @@ export default {
 
 .card-header {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   gap: 1.5rem;
@@ -258,7 +259,9 @@ export default {
   position: relative;
   display: flex;
   align-items: center;
-  min-width: 300px;
+  flex: 1 1 220px;
+  max-width: 300px;
+  min-width: 0;
 }
 
 .search-icon {

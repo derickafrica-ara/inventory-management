@@ -243,6 +243,7 @@ export default {
 .orders-table {
   table-layout: fixed;
   width: 100%;
+  min-width: 720px; /* scroll inside the card on phones instead of crushing columns */
 }
 
 /* Column widths */
