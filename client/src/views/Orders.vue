@@ -74,6 +74,54 @@
           </table>
         </div>
       </div>
+
+      <div class="card submitted-orders-card">
+        <div class="card-header">
+          <h3 class="card-title">{{ t('orders.submittedOrders') }} ({{ submittedOrders.length }})</h3>
+        </div>
+        <p class="submitted-description">{{ t('orders.submittedOrdersDescription') }}</p>
+        <div v-if="submittedOrders.length === 0" class="empty-state">{{ t('orders.noSubmittedOrders') }}</div>
+        <div v-else class="table-container">
+          <table class="orders-table">
+            <thead>
+              <tr>
+                <th class="col-order-number">{{ t('orders.table.orderNumber') }}</th>
+                <th class="col-items">{{ t('orders.table.items') }}</th>
+                <th class="col-value">{{ t('orders.table.totalCost') }}</th>
+                <th class="col-date">{{ t('orders.table.submittedDate') }}</th>
+                <th class="col-date">{{ t('orders.table.leadTime') }}</th>
+                <th class="col-date">{{ t('orders.table.expectedDelivery') }}</th>
+                <th class="col-status">{{ t('orders.table.status') }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="order in submittedOrders" :key="order.id">
+                <td class="col-order-number"><strong>{{ order.order_number }}</strong></td>
+                <td class="col-items">
+                  <details class="items-details">
+                    <summary class="items-summary">
+                      {{ t('orders.itemsCount', { count: order.items.length }) }}
+                    </summary>
+                    <div class="items-dropdown">
+                      <div v-for="item in order.items" :key="item.sku" class="item-entry">
+                        <span class="item-name">{{ translateProductName(item.name) }}</span>
+                        <span class="item-meta">{{ t('orders.quantity') }}: {{ item.quantity }} @ {{ formatCurrencyWithDecimals(item.unit_cost, currentCurrency, 2) }}</span>
+                      </div>
+                    </div>
+                  </details>
+                </td>
+                <td class="col-value"><strong>{{ formatCurrency(order.total_cost, currentCurrency) }}</strong></td>
+                <td class="col-date">{{ formatDate(order.submitted_date) }}</td>
+                <td class="col-date">{{ t('orders.leadTimeDays', { count: order.lead_time_days }) }}</td>
+                <td class="col-date">{{ formatDate(order.expected_delivery) }}</td>
+                <td class="col-status">
+                  <span class="badge info">{{ t('status.submitted') }}</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -83,6 +131,7 @@ import { ref, onMounted, watch, computed } from 'vue'
 import { api } from '../api'
 import { useFilters } from '../composables/useFilters'
 import { useI18n } from '../composables/useI18n'
+import { formatCurrency, formatCurrencyWithDecimals } from '../utils/currency'
 
 export default {
   name: 'Orders',
@@ -95,6 +144,7 @@ export default {
     const loading = ref(true)
     const error = ref(null)
     const orders = ref([])
+    const submittedOrders = ref([])
 
     // Use shared filters
     const {
@@ -109,7 +159,20 @@ export default {
       try {
         loading.value = true
         const filters = getCurrentFilters()
-        const fetchedOrders = await api.getOrders(filters)
+        // Submitted restock orders ignore the FilterBar filters. A failure there is
+        // non-fatal so the main orders table still loads (e.g. older backend without the endpoint).
+        const [fetchedOrders, fetchedSubmitted] = await Promise.all([
+          api.getOrders(filters),
+          api.getRestockOrders().catch(err => {
+            console.error('Failed to load submitted orders:', err)
+            return []
+          })
+        ])
+
+        // Newest submission first
+        submittedOrders.value = [...fetchedSubmitted].sort((a, b) => {
+          return new Date(b.submitted_date) - new Date(a.submitted_date)
+        })
 
         // Sort orders by order_date (earliest first)
         orders.value = fetchedOrders.sort((a, b) => {
@@ -160,6 +223,10 @@ export default {
       loading,
       error,
       orders,
+      submittedOrders,
+      currentCurrency,
+      formatCurrency,
+      formatCurrencyWithDecimals,
       getOrdersByStatus,
       getOrderStatusClass,
       formatDate,
@@ -201,6 +268,22 @@ export default {
 
 .col-value {
   width: 120px;
+}
+
+.submitted-orders-card {
+  margin-top: 1.5rem;
+}
+
+.submitted-description {
+  margin: 0 0 1rem;
+  font-size: 0.875rem;
+  color: #64748b;
+}
+
+.empty-state {
+  padding: 1.5rem;
+  text-align: center;
+  color: #64748b;
 }
 
 /* Items details styling */

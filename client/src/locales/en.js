@@ -6,6 +6,7 @@ export default {
     orders: 'Orders',
     finance: 'Finance',
     demandForecast: 'Demand Forecast',
+    restocking: 'Restocking',
     companyName: 'Catalyst Components',
     subtitle: 'Inventory Management System'
   },
@@ -125,7 +126,45 @@ export default {
       totalValue: 'Total Value',
       status: 'Status',
       expectedDelivery: 'Expected Delivery',
-      actualDelivery: 'Actual Delivery'
+      actualDelivery: 'Actual Delivery',
+      leadTime: 'Lead Time',
+      totalCost: 'Total Cost',
+      submittedDate: 'Submitted'
+    },
+    submittedOrders: 'Submitted Orders',
+    submittedOrdersDescription: 'Restocking orders awaiting delivery',
+    noSubmittedOrders: 'No restocking orders submitted yet',
+    leadTimeDays: '{count} days'
+  },
+
+  // Restocking
+  restocking: {
+    title: 'Restocking',
+    description: 'Set a budget and restock the items with the highest forecast demand',
+    budget: 'Available Budget',
+    budgetHelp: 'Drag to set how much you can spend on restocking',
+    recommended: 'Recommended Items',
+    noRecommendations: 'No items to restock at this budget',
+    totalSpend: 'Total Spend',
+    remaining: 'Remaining Budget',
+    longestLeadTime: 'Longest Lead Time',
+    days: '{count} days',
+    placeOrder: 'Place Order',
+    placingOrder: 'Placing Order...',
+    selectItems: 'Select at least one item to place an order',
+    orderPlaced: 'Order {number} submitted. Expected delivery in {days} days.',
+    orderFailed: 'Failed to place order',
+    overBudget: 'Selected items exceed the budget. Reduce quantities or deselect items to place the order.',
+    table: {
+      select: 'Select',
+      sku: 'SKU',
+      item: 'Item',
+      supplier: 'Supplier',
+      trend: 'Trend',
+      quantity: 'Quantity',
+      unitCost: 'Unit Cost',
+      lineCost: 'Cost',
+      leadTime: 'Lead Time'
     }
   },
 
@@ -206,7 +245,8 @@ export default {
     backordered: 'Backordered',
     inStock: 'In Stock',
     lowStock: 'Low Stock',
-    adequate: 'Adequate'
+    adequate: 'Adequate',
+    submitted: 'Submitted'
   },
 
   // Trends
