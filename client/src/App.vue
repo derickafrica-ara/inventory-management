@@ -218,50 +218,58 @@ export default {
 
 <style>
 :root {
+  /* Atari 2600 "Classic" palette */
+  --atari-orange: #e8761c;
+  --atari-yellow: #f2c230;
+  --atari-green: #4caf50;
+  --atari-blue: #3a6fd8;
+  --atari-red: #d8382c;
+  --atari-black: #000000;
+
   /* Surfaces */
-  --color-bg: #f8fafc;
-  --color-surface: #ffffff;
-  --color-surface-muted: #f1f5f9;
-  --color-sidebar-bg: #0f172a;
-  --color-sidebar-text: #cbd5e1;
-  --color-sidebar-text-muted: #94a3b8;
-  --color-sidebar-text-active: #ffffff;
-  --color-sidebar-hover: rgba(255, 255, 255, 0.06);
-  --color-sidebar-active: rgba(59, 130, 246, 0.24);
+  --color-bg: #0b0b10;
+  --color-surface: #15151d;
+  --color-surface-muted: #1f1f2a;
+  --color-sidebar-bg: #3a2416;
+  --color-sidebar-text: #f0e2d0;
+  --color-sidebar-text-muted: #d9c3a8;
+  --color-sidebar-text-active: #000000;
+  --color-sidebar-hover: rgba(242, 194, 48, 0.18);
+  --color-sidebar-active: #e8761c;
 
   /* Text */
-  --color-text: #0f172a;
-  --color-text-body: #334155;
-  --color-text-muted: #64748b;
-  --color-text-subtle: #94a3b8;
+  --color-text: #f2efe6;
+  --color-text-body: #e0dccf;
+  --color-text-muted: #a9a79f;
+  --color-text-subtle: #8c8a84;
 
   /* Lines */
-  --color-border: #e2e8f0;
-  --color-border-strong: #cbd5e1;
+  --color-border: #3a3a4a;
+  --color-border-strong: #5a5a70;
 
   /* Accent */
-  --color-accent: #2563eb;
-  --color-accent-hover: #1d4ed8;
-  --color-accent-soft: #eff6ff;
-  --color-focus-ring: rgba(37, 99, 235, 0.4);
-  --color-focus-ring-on-dark: rgba(147, 197, 253, 0.8);
+  --color-accent: #e8761c;
+  --color-accent-hover: #f58a30;
+  --color-accent-soft: #2b1a0c;
+  --color-focus-ring: #f2c230;
+  --color-focus-ring-on-dark: #f2c230;
 
-  /* Status: strong value colors plus soft badge backgrounds and text */
-  --color-success: #059669;
-  --color-success-soft: #d1fae5;
-  --color-success-text: #065f46;
-  --color-info: #2563eb;
-  --color-info-soft: #dbeafe;
-  --color-info-text: #1e40af;
-  --color-warning: #ea580c;
-  --color-warning-soft: #fed7aa;
-  --color-warning-text: #92400e;
-  --color-danger: #dc2626;
-  --color-danger-soft: #fecaca;
-  --color-danger-text: #991b1b;
-  --color-danger-bg: #fef2f2;
-  --color-stable-soft: #e0e7ff;
-  --color-stable-text: #3730a3;
+  /* Status: strong value colors plus solid badge blocks with dark text */
+  --color-success: #5cc460;
+  --color-success-soft: #4caf50;
+  --color-success-text: #000000;
+  --color-info: #6b97f0;
+  --color-info-soft: #3a6fd8;
+  --color-info-text: #ffffff;
+  --color-warning: #f2c230;
+  --color-warning-soft: #f2c230;
+  --color-warning-text: #000000;
+  --color-danger: #ff6a5c;
+  --color-danger-soft: #d8382c;
+  --color-danger-text: #ffffff;
+  --color-danger-bg: #2a1210;
+  --color-stable-soft: #8a8a9a;
+  --color-stable-text: #000000;
 
   /* Spacing (4px base) */
   --space-1: 4px;
@@ -275,7 +283,8 @@ export default {
   --space-12: 48px;
 
   /* Typography */
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  --font-sans: ui-monospace, 'SF Mono', Menlo, Consolas, 'Courier New', monospace;
+  --font-display: ui-monospace, 'SF Mono', Menlo, Consolas, 'Courier New', monospace;
   --text-xs: 12px;
   --text-sm: 13px;
   --text-base: 14px;
@@ -290,12 +299,13 @@ export default {
   --leading-normal: 1.5;
 
   /* Radius and shadow */
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 14px;
-  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06);
-  --shadow-md: 0 4px 12px rgba(15, 23, 42, 0.08);
-  --shadow-lg: 0 12px 32px rgba(15, 23, 42, 0.14);
+  --radius-sm: 0;
+  --radius-md: 0;
+  --radius-lg: 0;
+  --border-width: 2px;
+  --shadow-sm: 3px 3px 0 #000;
+  --shadow-md: 4px 4px 0 #000;
+  --shadow-lg: 6px 6px 0 #000;
 
   /* Layout */
   --sidebar-width: 248px;
@@ -319,6 +329,109 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Faint static scanlines over the page background */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  background: repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.025) 0, rgba(255, 255, 255, 0.025) 1px, transparent 1px, transparent 3px);
+}
+
+/* Shared controls */
+button, select, input, textarea {
+  border-radius: 0;
+}
+
+input:not([type='range']):not([type='checkbox']):not([type='radio']),
+select,
+textarea {
+  background: var(--color-surface-muted);
+  color: var(--color-text);
+  border: var(--border-width) solid var(--color-border-strong);
+  font-family: inherit;
+}
+
+input[type='checkbox'],
+input[type='radio'] {
+  accent-color: var(--atari-orange);
+}
+
+select option {
+  background: var(--color-surface-muted);
+  color: var(--color-text);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+button:active:not(:disabled) {
+  transform: translate(2px, 2px) !important;
+  box-shadow: none !important;
+}
+
+button:not(:disabled) {
+  font-family: var(--font-display);
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+input[type='range'] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 12px;
+  background: var(--color-surface-muted);
+  border: var(--border-width) solid var(--color-border-strong);
+  border-radius: 0;
+  cursor: pointer;
+}
+
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 22px;
+  background: var(--atari-orange);
+  border: 2px solid #000;
+  border-radius: 0;
+  box-shadow: 2px 2px 0 #000;
+  cursor: pointer;
+}
+
+input[type='range']::-moz-range-thumb {
+  width: 18px;
+  height: 22px;
+  background: var(--atari-orange);
+  border: 2px solid #000;
+  border-radius: 0;
+  box-shadow: 2px 2px 0 #000;
+  cursor: pointer;
+}
+
+/* Atari logo: four palette blocks */
+.atari-logo {
+  display: inline-flex;
+  gap: 3px;
+}
+
+.atari-logo i {
+  display: block;
+  width: 10px;
+  height: 10px;
+  border: 1px solid #000;
+}
+.atari-logo i:nth-child(1) { background: var(--atari-red); }
+.atari-logo i:nth-child(2) { background: var(--atari-orange); }
+.atari-logo i:nth-child(3) { background: var(--atari-yellow); }
+.atari-logo i:nth-child(4) { background: var(--atari-blue); }
+
 /* Shell */
 .app-shell {
   display: grid;
@@ -334,14 +447,32 @@ body {
   display: flex;
   flex-direction: column;
   padding: var(--space-5) var(--space-3);
-  background: var(--color-sidebar-bg);
+  background:
+    repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.14) 0, rgba(0, 0, 0, 0.14) 2px, transparent 2px, transparent 7px),
+    var(--color-sidebar-bg);
   color: var(--color-sidebar-text);
   overflow-y: auto;
+  border-right: 4px solid #000;
+  border-left: 4px solid #c9a06a;
 }
 
 .sidebar-brand {
   padding: 0 var(--space-3) var(--space-5);
+  margin-bottom: var(--space-3);
+  border-bottom: 3px solid #000;
   min-width: 0;
+}
+
+/* CSS-drawn logo: four palette squares */
+.sidebar-brand::before {
+  content: '';
+  display: block;
+  width: 12px;
+  height: 12px;
+  margin-bottom: var(--space-3);
+  background: var(--atari-red);
+  border: 1px solid #000;
+  box-shadow: 15px 0 0 0 var(--atari-orange), 30px 0 0 0 var(--atari-yellow), 45px 0 0 0 var(--atari-blue);
 }
 
 .sidebar-brand-name,
@@ -353,10 +484,13 @@ body {
 }
 
 .sidebar-brand-name {
+  font-family: var(--font-display);
   font-size: var(--text-md);
-  font-weight: var(--weight-semibold);
+  font-weight: var(--weight-bold);
   line-height: var(--leading-tight);
-  color: var(--color-sidebar-text-active);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: #fff;
 }
 
 .sidebar-brand-sub {
@@ -382,23 +516,28 @@ body {
   text-decoration: none;
   font-size: var(--text-base);
   font-weight: var(--weight-medium);
+  border: 2px solid transparent;
   transition: background-color 120ms ease, color 120ms ease;
 }
 
 .sidebar-link:hover {
   background: var(--color-sidebar-hover);
-  color: var(--color-sidebar-text-active);
+  border-color: var(--atari-yellow);
+  color: #fff;
 }
 
 .sidebar-link.is-active {
   background: var(--color-sidebar-active);
+  border-color: #000;
+  box-shadow: 3px 3px 0 #000;
   color: var(--color-sidebar-text-active);
+  font-weight: var(--weight-bold);
 }
 
 .sidebar-link:focus-visible,
 .menu-button:focus-visible {
   outline: 2px solid var(--color-focus-ring-on-dark);
-  outline-offset: 2px;
+  outline-offset: 1px;
 }
 
 .sidebar-icon {
@@ -437,7 +576,7 @@ body {
   height: var(--topbar-height);
   padding: 0 var(--space-6);
   background: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 3px solid #000;
 }
 
 .topbar-actions {
@@ -450,15 +589,15 @@ body {
   display: none;
   margin-right: auto;
   padding: var(--space-2);
-  border: 0;
-  border-radius: var(--radius-sm);
+  border: 2px solid var(--color-border-strong);
+  border-radius: 0;
   background: none;
   color: var(--color-text);
   cursor: pointer;
 }
 
-.menu-button:focus-visible {
-  outline-color: var(--color-focus-ring);
+.menu-button:hover {
+  border-color: var(--atari-yellow);
 }
 
 .content {
@@ -492,7 +631,7 @@ body {
     position: fixed;
     inset: 0;
     z-index: 20;
-    background: rgba(15, 23, 42, 0.45);
+    background: rgba(0, 0, 0, 0.7);
     opacity: 0;
     pointer-events: none;
     transition: opacity 180ms ease;
@@ -535,7 +674,21 @@ body {
   line-height: var(--leading-tight);
   color: var(--color-text);
   margin-bottom: var(--space-1);
-  letter-spacing: -0.02em;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.page-header h2::before {
+  content: '';
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  margin-right: var(--space-3);
+  vertical-align: baseline;
+  background: var(--atari-orange);
+  border: 2px solid #000;
+  box-shadow: 14px 0 0 -1px var(--atari-yellow), 28px 0 0 -1px var(--atari-green), 42px 0 0 -1px var(--atari-blue);
+  margin-right: 56px;
 }
 
 .page-header p {
@@ -556,14 +709,13 @@ body {
   background: var(--color-surface);
   padding: var(--space-5);
   border-radius: var(--radius-md);
-  border: 1px solid var(--color-border);
-  box-shadow: var(--shadow-sm);
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  border: var(--border-width) solid var(--color-border-strong);
+  box-shadow: var(--shadow-md);
+  transition: border-color 0.15s ease;
 }
 
 .stat-card:hover {
-  border-color: var(--color-border-strong);
-  box-shadow: var(--shadow-md);
+  border-color: var(--atari-yellow);
 }
 
 .stat-label {
@@ -580,7 +732,8 @@ body {
   font-weight: var(--weight-bold);
   line-height: var(--leading-tight);
   color: var(--color-text);
-  letter-spacing: -0.02em;
+  font-family: var(--font-display);
+  letter-spacing: 0.02em;
 }
 
 .stat-card.warning .stat-value {
@@ -604,8 +757,8 @@ body {
   background: var(--color-surface);
   border-radius: var(--radius-md);
   padding: var(--space-5);
-  border: 1px solid var(--color-border);
-  box-shadow: var(--shadow-sm);
+  border: var(--border-width) solid var(--color-border-strong);
+  box-shadow: var(--shadow-md);
   margin-bottom: var(--space-5);
   min-width: 0;
 }
@@ -617,10 +770,12 @@ body {
   gap: var(--space-3);
   margin-bottom: var(--space-4);
   padding-bottom: var(--space-4);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: var(--border-width) solid var(--color-border-strong);
 }
 
 .card-title {
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
   font-size: var(--text-md);
   font-weight: var(--weight-semibold);
   line-height: var(--leading-tight);
@@ -639,9 +794,11 @@ table {
 
 thead {
   background: var(--color-surface-muted);
+  border-bottom: var(--border-width) solid var(--color-border-strong);
 }
 
 th {
+  font-family: var(--font-display);
   text-align: left;
   padding: var(--space-2) var(--space-3);
   font-weight: var(--weight-semibold);
@@ -653,7 +810,7 @@ th {
 
 td {
   padding: var(--space-3);
-  border-top: 1px solid var(--color-surface-muted);
+  border-top: 1px solid var(--color-border);
   color: var(--color-text-body);
   font-size: var(--text-sm);
 }
@@ -663,19 +820,21 @@ tbody tr {
 }
 
 tbody tr:hover {
-  background: var(--color-bg);
+  background: rgba(242, 194, 48, 0.1);
 }
 
 /* Badges */
 .badge {
   display: inline-block;
-  padding: var(--space-1) var(--space-2);
-  border-radius: var(--radius-sm);
+  padding: 2px var(--space-2);
+  border: 2px solid #000;
+  border-radius: 0;
+  font-family: var(--font-display);
   font-size: var(--text-xs);
   font-weight: var(--weight-semibold);
   line-height: var(--leading-normal);
   text-transform: uppercase;
-  letter-spacing: 0.025em;
+  letter-spacing: 0.06em;
 }
 
 .badge.success,
@@ -718,8 +877,8 @@ tbody tr:hover {
 
 .error {
   background: var(--color-danger-bg);
-  border: 1px solid var(--color-danger-soft);
-  color: var(--color-danger-text);
+  border: var(--border-width) solid var(--color-danger-soft);
+  color: #ffd2cc;
   padding: var(--space-4);
   border-radius: var(--radius-sm);
   margin: var(--space-4) 0;

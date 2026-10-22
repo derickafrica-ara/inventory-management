@@ -105,7 +105,7 @@ export default {
 .filters-bar {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
+  border-radius: 0;
   box-shadow: var(--shadow-sm);
   padding: var(--space-3) var(--space-4);
   margin-bottom: var(--space-5);
@@ -146,7 +146,7 @@ export default {
   padding: var(--space-1) var(--space-3);
   height: 32px;
   border: 1px solid var(--color-border-strong);
-  border-radius: var(--radius-sm);
+  border-radius: 0;
   font-family: inherit;
   font-size: var(--text-sm);
   color: var(--color-text);
@@ -164,7 +164,7 @@ export default {
 .reset-filters-btn:focus-visible {
   outline: none;
   border-color: var(--color-accent);
-  box-shadow: 0 0 0 3px var(--color-focus-ring);
+  box-shadow: 0 0 0 2px var(--color-focus-ring);
 }
 
 .reset-filters-btn {
@@ -175,7 +175,7 @@ export default {
   height: 32px;
   background: var(--color-surface);
   border: 1px solid var(--color-border-strong);
-  border-radius: var(--radius-sm);
+  border-radius: 0;
   color: var(--color-text-muted);
   cursor: pointer;
   transition: background-color 0.15s ease, color 0.15s ease;
