@@ -338,7 +338,7 @@ export default {
 .budget-value {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--color-text);
 }
 
 .budget-slider {
@@ -347,8 +347,8 @@ export default {
   margin: 0.5rem 0;
   appearance: none;
   -webkit-appearance: none;
-  background: #e2e8f0;
-  border-radius: 999px;
+  background: var(--color-border-strong);
+  border-radius: 0;
   outline: none;
   cursor: pointer;
 }
@@ -357,23 +357,23 @@ export default {
   -webkit-appearance: none;
   width: 20px;
   height: 20px;
-  border-radius: 50%;
-  background: #3b82f6;
+  border-radius: 0;
+  background: var(--atari-orange);
   border: 2px solid white;
-  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.3);
+  box-shadow: 4px 4px 0 #000;
 }
 
 .budget-slider::-moz-range-thumb {
   width: 18px;
   height: 18px;
-  border-radius: 50%;
-  background: #3b82f6;
+  border-radius: 0;
+  background: var(--atari-orange);
   border: 2px solid white;
-  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.3);
+  box-shadow: 4px 4px 0 #000;
 }
 
 .budget-slider:focus-visible {
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.35);
+  box-shadow: 0 0 0 2px var(--color-focus-ring);
 }
 
 .budget-slider:disabled {
@@ -385,35 +385,37 @@ export default {
   display: flex;
   justify-content: space-between;
   font-size: 0.813rem;
-  color: #64748b;
+  color: var(--color-text-muted);
 }
 
 .budget-help {
   margin: 0.75rem 0 0;
   font-size: 0.875rem;
-  color: #64748b;
+  color: var(--color-text-muted);
 }
 
 .qty-input {
   width: 80px;
   padding: 0.375rem 0.5rem;
-  border: 1px solid #e2e8f0;
-  border-radius: 6px;
-  color: #0f172a;
+  border: 2px solid var(--color-border-strong);
+  border-radius: 0;
+  color: var(--color-text);
   font-size: 0.875rem;
 }
 
 .qty-input:focus-visible {
-  outline: 2px solid #3b82f6;
+  outline: 2px solid var(--color-focus-ring);
   outline-offset: 1px;
 }
 
 .place-order-btn {
   padding: 0.5rem 1.25rem;
-  background: #0f172a;
-  color: white;
+  background: var(--atari-orange);
+  box-shadow: 4px 4px 0 #000;
+  border: 2px solid #000 !important;
+  color: #000;
   border: none;
-  border-radius: 6px;
+  border-radius: 0;
   font-size: 0.875rem;
   font-weight: 600;
   cursor: pointer;
@@ -421,11 +423,12 @@ export default {
 }
 
 .place-order-btn:hover:not(:disabled) {
-  background: #1e293b;
+  background: var(--atari-yellow);
 }
 
 .place-order-btn:disabled {
-  background: #94a3b8;
+  background: #8c8a84;
+  color: #000;
   cursor: not-allowed;
 }
 
@@ -435,22 +438,22 @@ export default {
   gap: 1rem;
   padding: 0.75rem 1rem;
   margin-bottom: 1.5rem;
-  border-radius: 8px;
+  border-radius: 0;
   border: 1px solid;
   font-size: 0.875rem;
   font-weight: 500;
 }
 
 .notice-success {
-  background: #d1fae5;
-  border-color: #6ee7b7;
-  color: #065f46;
+  background: var(--atari-green);
+  border-color: var(--atari-green);
+  color: #000;
 }
 
 .notice-error {
-  background: #fee2e2;
-  border-color: #fca5a5;
-  color: #991b1b;
+  background: var(--atari-red);
+  border-color: var(--atari-red);
+  color: #fff;
 }
 
 .notice-link {
@@ -463,6 +466,6 @@ export default {
 .empty-state {
   padding: 2rem;
   text-align: center;
-  color: #64748b;
+  color: var(--color-text-muted);
 }
 </style>
