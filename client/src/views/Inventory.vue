@@ -339,4 +339,10 @@ export default {
 .clickable-row:hover {
   background: var(--color-accent-soft);
 }
+
+/* Keep SKUs and status badges on one line; the table container scrolls instead */
+td:first-child,
+.badge {
+  white-space: nowrap;
+}
 </style>
